@@ -1,43 +1,57 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from core.models import GeneralSetting,ImageSetting,Skill,Experience,Education,SosyalMedia,Document
 # Create your views here.
-def index(request):
-    site_title=GeneralSetting.objects.get(name='site_title').paramater
+
+def layout(request):
+    site_title = GeneralSetting.objects.get(name='site_title').paramater
     site_keywords = GeneralSetting.objects.get(name='site_keywords').paramater
     site_description = GeneralSetting.objects.get(name='site_description').paramater
-    home_banner_name=GeneralSetting.objects.get(name='home_banner_name').paramater
+    home_banner_name = GeneralSetting.objects.get(name='home_banner_name').paramater
     home_banner_title = GeneralSetting.objects.get(name='home_banner_title').paramater
     home_banner_description = GeneralSetting.objects.get(name='home_banner_description').paramater
     about_myself_welcome = GeneralSetting.objects.get(name='about_myself_welcome').paramater
     about_footer = GeneralSetting.objects.get(name='about_footer').paramater
-    favicon=ImageSetting.objects.get(name='favicon').file
+    favicon = ImageSetting.objects.get(name='favicon').file
     header_logo = ImageSetting.objects.get(name='header_logo').file
     home_banner_img = ImageSetting.objects.get(name='home_banner_img').file
+    documents = Document.objects.all()
+    sosyalmedias = SosyalMedia.objects.all()
+    context={
+        'site_title': site_title,
+        'site_keywords': site_keywords,
+        'site_description': site_description,
+        'home_banner_name': home_banner_name,
+        'home_banner_title': home_banner_title,
+        'home_banner_description': home_banner_description,
+        'about_myself_welcome': about_myself_welcome,
+        'about_footer': about_footer,
+        'favicon': favicon,
+        'header_logo': header_logo,
+        'home_banner_img': home_banner_img,
+        'documents': documents,
+        'sosyalmedias': sosyalmedias,
+
+    }
+    return context
+
+
+def index(request):
+
     skills=Skill.objects.all()
     experiences=Experience.objects.all()
     educations=Education.objects.all()
-    sosyalmedias=SosyalMedia.objects.all()
-    documents=Document.objects.all()
+
+
     context={
-        'site_title':site_title,
-        'site_keywords':site_keywords,
-        'site_description':site_description,
-        'home_banner_name':home_banner_name,
-        'home_banner_title':home_banner_title,
-        'home_banner_description':home_banner_description,
-        'about_myself_welcome':about_myself_welcome,
-        'about_footer':about_footer,
-        'favicon':favicon,
-        'header_logo':header_logo,
-        'home_banner_img':home_banner_img,
+
         'skills':skills,
         'experiences':experiences,
         'educations':educations,
-        'sosyalmedias':sosyalmedias,
-        'documents':documents,
+
+
     }
     return render(request,'index.html',context)
 
-def redirect_url(request,slug):
+def redirect_urls(request,slug):
     doc=get_object_or_404(Document,slug=slug)
     return redirect(doc.file.url)
