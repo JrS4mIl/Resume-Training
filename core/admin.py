@@ -32,3 +32,12 @@ class SkillSettingAdmin(admin.ModelAdmin):
     class Meta:
         model=Skill
 
+@admin.register(Experience)
+class ExperienceAdmin(admin.ModelAdmin):
+    list_display = ['id','company_name','job_title','job_location','start_date','end_date','created_date','update_date']
+    search_fields = ['name','company_name']
+    list_editable = ['company_name','job_title','job_location','start_date','end_date']
+
+
+    class Meta:
+        model=Experience
