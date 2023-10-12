@@ -91,3 +91,16 @@ class SosyalMedia(AbstractModel):
         verbose_name = 'SosyalMedia'
         verbose_name_plural = 'SosyalMedias'
         ordering=('order',)
+
+class Document(AbstractModel):
+    order = models.IntegerField(default='0', verbose_name='Order')
+    slug = models.SlugField(default='', max_length=200, verbose_name='Slug')
+    file=models.FileField(default='',verbose_name='Document Name',upload_to='documents/')
+    button_text=models.CharField(default='', max_length=120, blank=True, verbose_name='Butoon Text')
+
+    def __str__(self):
+        return f'Document:{self.slug}'
+    class Meta:
+        verbose_name = 'Document'
+        verbose_name_plural = 'Documents'
+        ordering = ('order',)

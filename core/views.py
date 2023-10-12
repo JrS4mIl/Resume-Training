@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from core.models import GeneralSetting,ImageSetting,Skill,Experience,Education,SosyalMedia
+from django.shortcuts import render,redirect,get_object_or_404
+from core.models import GeneralSetting,ImageSetting,Skill,Experience,Education,SosyalMedia,Document
 # Create your views here.
 def index(request):
     site_title=GeneralSetting.objects.get(name='site_title').paramater
@@ -17,6 +17,7 @@ def index(request):
     experiences=Experience.objects.all()
     educations=Education.objects.all()
     sosyalmedias=SosyalMedia.objects.all()
+    documents=Document.objects.all()
     context={
         'site_title':site_title,
         'site_keywords':site_keywords,
@@ -32,7 +33,11 @@ def index(request):
         'skills':skills,
         'experiences':experiences,
         'educations':educations,
-        'sosyalmedias':sosyalmedias
+        'sosyalmedias':sosyalmedias,
+        'documents':documents,
     }
     return render(request,'index.html',context)
 
+def redirect_url(request,slug):
+    doc=get_object_or_404(Document,slug=slug)
+    return redirect(doc.file.url)
