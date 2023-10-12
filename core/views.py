@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from core.models import GeneralSetting,ImageSetting,Skill,Experience,Education
+from core.models import GeneralSetting,ImageSetting,Skill,Experience,Education,SosyalMedia
 # Create your views here.
 def index(request):
     site_title=GeneralSetting.objects.get(name='site_title').paramater
@@ -16,6 +16,7 @@ def index(request):
     skills=Skill.objects.all()
     experiences=Experience.objects.all()
     educations=Education.objects.all()
+    sosyalmedias=SosyalMedia.objects.all()
     context={
         'site_title':site_title,
         'site_keywords':site_keywords,
@@ -31,6 +32,7 @@ def index(request):
         'skills':skills,
         'experiences':experiences,
         'educations':educations,
+        'sosyalmedias':sosyalmedias
     }
     return render(request,'index.html',context)
 

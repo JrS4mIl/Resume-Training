@@ -51,3 +51,11 @@ class EducationAdmin(admin.ModelAdmin):
 
     class Meta:
         model=Education
+
+@admin.register(SosyalMedia)
+class SosyalMediaAdmin(admin.ModelAdmin):
+    list_display = ['id','link','icon','created_date','update_date']
+    search_fields = ['link']
+    list_editable = ['link','icon']
+    class Meta:
+        model=SosyalMedia
