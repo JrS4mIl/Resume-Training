@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from core.models import GeneralSetting,ImageSetting,Skill,Experience
+from core.models import GeneralSetting,ImageSetting,Skill,Experience,Education
 # Create your views here.
 def index(request):
     site_title=GeneralSetting.objects.get(name='site_title').paramater
@@ -15,6 +15,7 @@ def index(request):
     home_banner_img = ImageSetting.objects.get(name='home_banner_img').file
     skills=Skill.objects.all()
     experiences=Experience.objects.all()
+    educations=Education.objects.all()
     context={
         'site_title':site_title,
         'site_keywords':site_keywords,
@@ -29,7 +30,7 @@ def index(request):
         'home_banner_img':home_banner_img,
         'skills':skills,
         'experiences':experiences,
-
+        'educations':educations,
     }
     return render(request,'index.html',context)
 
