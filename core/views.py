@@ -1,19 +1,32 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from core.models import GeneralSetting,ImageSetting,Skill,Experience,Education,SosyalMedia,Document
 # Create your views here.
+def get_general_setting(parameter):
+    try:
+        obj=GeneralSetting.objects.get(name=parameter).paramater
+    except:
+        obj=''
+    return obj
+def get_image_setting(parameter):
+    try:
+        obj=ImageSetting.objects.get(name=parameter).file
+    except:
+        obj=''
+    return obj
 
 def layout(request):
-    site_title = GeneralSetting.objects.get(name='site_title').paramater
-    site_keywords = GeneralSetting.objects.get(name='site_keywords').paramater
-    site_description = GeneralSetting.objects.get(name='site_description').paramater
-    home_banner_name = GeneralSetting.objects.get(name='home_banner_name').paramater
-    home_banner_title = GeneralSetting.objects.get(name='home_banner_title').paramater
-    home_banner_description = GeneralSetting.objects.get(name='home_banner_description').paramater
-    about_myself_welcome = GeneralSetting.objects.get(name='about_myself_welcome').paramater
-    about_footer = GeneralSetting.objects.get(name='about_footer').paramater
-    favicon = ImageSetting.objects.get(name='favicon').file
-    header_logo = ImageSetting.objects.get(name='header_logo').file
-    home_banner_img = ImageSetting.objects.get(name='home_banner_img').file
+    site_title = get_general_setting('site_title')
+    site_keywords = get_general_setting('site_keywords')
+    site_description =get_general_setting('site_description')
+    home_banner_name = get_general_setting('home_banner_name')
+    home_banner_title = get_general_setting('home_banner_title')
+    home_banner_description = get_general_setting('home_banner_description')
+    about_myself_welcome = get_general_setting('about_myself_welcome')
+    about_footer =get_general_setting('about_footer')
+
+    favicon = get_image_setting('favicon')
+    header_logo = get_image_setting('header_logo')
+    home_banner_img = get_image_setting('home_banner_img')
     documents = Document.objects.all()
     sosyalmedias = SosyalMedia.objects.all()
     context={
