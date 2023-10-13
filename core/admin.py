@@ -12,3 +12,12 @@ class GeneralSettingAdmin(admin.ModelAdmin):
 
     class Meta:
         model = GeneralSetting
+
+
+@admin.register(ImageSetting)
+class ImageSettingAdmin(admin.ModelAdmin):
+    list_display = ['id','name','description','created_date','update_date']
+    search_fields = ['name','description','file']
+
+    class Meta:
+        model=ImageSetting
